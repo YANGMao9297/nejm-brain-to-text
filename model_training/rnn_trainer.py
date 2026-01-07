@@ -384,7 +384,7 @@ class BrainToTextDecoder_Trainer:
 
         self.logger.info("Loaded model from checkpoint: " + load_path)
 
-    def save_model_checkpoint(self, save_path, PER, loss):
+    def save_model_checkpoint(self, save_path, PER, loss, current_step = 0):
         '''
         Save a training checkpoint
         '''
@@ -394,7 +394,8 @@ class BrainToTextDecoder_Trainer:
             'optimizer_state_dict' : self.optimizer.state_dict(),
             'scheduler_state_dict' : self.learning_rate_scheduler.state_dict(),
             'val_PER' : PER,
-            'val_loss' : loss
+            'val_loss' : loss,
+            'current_step': current_step  # 新增：保存當前步數
         }
         
         torch.save(checkpoint, save_path)
